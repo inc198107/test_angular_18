@@ -1,0 +1,82 @@
+<div class="w-full flex flex-col">
+    <p-toolbar styleClass="mb-2">
+        <ng-template pTemplate="start">
+            <p-iconField iconPosition="left">
+                <p-inputIcon styleClass="pi pi-search" />
+                <input type="text" pInputText placeholder="Search by keyword..." />
+            </p-iconField>
+        </ng-template>
+        <ng-template pTemplate="end">
+            <p-button [outlined]="true"
+               label="Assign to me"
+               styleClass="mr-3"
+               badge="4"
+               badgeClass="p-badge-primary">
+            </p-button>
+            <p-button
+               label="Change status"
+               styleClass="mr-3"
+               badge="2"
+               badgeClass="p-badge-primary">
+            </p-button>
+            <p-button
+                [severity]="'primary'"
+                icon="pi pi-ellipsis-v"
+                iconOnly
+                (onClick)="mainMenu.toggle($event)"
+                text>
+            </p-button>
+            <p-tieredMenu #mainMenu [model]="mainMenuItems" [popup]="true" 
+                appendTo="body"/>
+        </ng-template>
+    </p-toolbar>
+    <p-table [value]="products" dataKey="id" [tableStyle]="{ 'min-width': '50rem' }">
+        <ng-template pTemplate="header">
+            <tr>
+                <th pSortableColumn="code" style="width:25%">
+                    Alert Id<p-sortIcon field="code" />
+                </th>
+                <th pSortableColumn="name" style="width:25%">
+                    Name <p-sortIcon field="name" />
+                </th>
+                <th pSortableColumn="category" style="width:25%">
+                    Quantity <p-sortIcon field="quantity" />
+                </th>
+                <th pSortableColumn="quantity" style="width:25%">
+                    Price <p-sortIcon field="price" />
+                </th>
+            </tr>
+            <tr>
+                <th>
+                    <p-columnFilter type="text" field="code" [showClearButton]="false" />
+                </th>
+                <th>
+                    <p-columnFilter type="text" field="name" [showClearButton]="false" />
+                </th>
+                <th>
+                    <p-columnFilter type="text" field="quantity" [showClearButton]="false" />
+                </th>
+                <th>
+                    <p-columnFilter type="text" field="price" [showClearButton]="false" />
+                </th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-product>
+            <tr>
+                <td>
+                    {{ product.code }}    
+                </td>
+                <td>
+                    {{ product.name }}
+                </td>
+                <td>
+                    {{ product.quantity }}
+                </td>
+                <td>
+                    {{ product.price | currency : 'USD' }}
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>
+
