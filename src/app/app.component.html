@@ -149,19 +149,53 @@
             </div>
         </div>
     </header>
-    <main class="w-full grid grid-cols-12 grid-rows-12 gap-0 min-h-[calc(100vh-4rem)]">
-        <aside
-            class="main-aside flex flex-col items-center bg-surface-400 dark:bg-surface-600 px-2 pt-2 col-span-1 row-span-12 row-start-1 col-start-1">
-            <div class="w-full flex flex-col items-center bg-transparent justify-between">
-                <ul>
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                </ul>
+    <main class="w-full grid grid-cols-24 grid-rows-12 gap-0 min-h-[calc(100vh-4rem)]">
+        <aside [ngClass]="{ 'col-span-2' : !sidebarMinimized, 'col-span-1': sidebarMinimized}"
+            class="main-aside flex flex-col items-center row-span-12 row-start-1 col-start-1">
+            <div class="w-full h-full px-2 pt-2 bg-surface-400 dark:bg-surface-600  flex flex-col items-center justify-between">
+                <div class="w-full flex flex-col items-center ">
+                    <ul class="p-2 w-full flex flex-col mb-2">
+                        <li class="w-full pl-3">
+                            <a role="button" class="text-white  dark:text-surface-900 w-full flex items-center justify-start" (click)="minimizeSidebar()">
+                               <span *ngIf="!sidebarMinimized" class="pi pi-arrow-circle-left" style="font-size: 2rem;"></span>
+                               <span *ngIf="sidebarMinimized" class="pi pi-arrow-circle-right" style="font-size: 2rem;"></span>
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="p-2 w-full flex flex-col mb-2">
+                        <li *ngFor="let menuItem of sidebarMenu; let idx = index" class="py-3 w-full flex flex-row  justify-center items-center">
+                            <a role="button" [ngClass]="{'justify-start':!sidebarMinimized, 'justify-center':sidebarMinimized}"
+                                class="h-[2rem] min-w-[3rem] rounded-md flex w-full flex-row  items-center
+                                 text-white dark:text-surface-900 transition ease-in-out  hover:-translate-y-1 
+                                 hover:scale-110 before:duration-150 hover:border-surface-50 hover:border px-2" 
+                                 (click)="openMenu($event, idx, menuItem?.items);" >
+                                <span *ngIf="menuItem.icon" [class]="menuItem.icon"></span>
+                                <span *ngIf="!sidebarMinimized" class="ml-2">{{menuItem.label}}</span>
+                            </a>
+                            <p-menu [model]="dynamicMenu" [popup]="true" appendTo="body" id="{{idx}}"></p-menu>
+                        </li>
+                    </ul>
+                    
+                    <p-divider type="solid" layout="horizontal" styleClass="border-surface-50 py-2 mx-3"/>
+                </div>
+                <footer class="flex flex-col px-2 pb-6 pt-2 w-full self-end">
+                    <a role="button" [ngClass]="{'justify-start': !sidebarMinimized, 'justify-center': sidebarMinimized}" 
+                        class="h-[2rem] min-w-[3rem] rounded-md flex w-full flex-row  items-center
+                        text-white dark:text-surface-50 transition ease-in-out  hover:-translate-y-1 
+                        hover:scale-110 before:duration-150 hover:border-surface-50 hover:border px-2 mb-6">
+                        <span class="pi pi-sign-out"></span>
+                        <span *ngIf="!sidebarMinimized" class="pl-3">Sign out</span>
+                    </a>
+                    <a role="button" [ngClass]="{'justify-start': !sidebarMinimized, 'justify-center': sidebarMinimized}"
+                        class="text-white dark:text-surface-50 w-full flex items-center justify-start text-sm">
+                        <span class="pi pi-globe pr-2"></span>
+                        <span *ngIf="!sidebarMinimized">{{currentDate | date:'shortDate'}}CMC:eSuite8.0.0</span>
+                    </a>
+                </footer>
             </div>
         </aside>
-        <section class="col-start-2 row-start-1 col-span-11 row-span-12 bg-surface-50 dark:bg-surface-800">
+        <section [ngClass]="{'col-start-3 col-span-22 transition-width duration-700 delay-150': !sidebarMinimized, 'col-start-2 col-span-23 transition-width duration-700 delay-150': sidebarMinimized}"
+            class="row-start-1 row-span-12 bg-surface-50 dark:bg-surface-800">
             <router-outlet>
             </router-outlet>
         </section>

@@ -49,6 +49,9 @@ export class DashboardComponent implements OnInit{
     cellHeight: '10rem'
   }
 
+
+  message = {severity: 'warn', summary:'Isn`t working yet', detail:'Functionality under development now' };
+
   datePresets:{label: string, value: any}[] = [
     {
       label:"This week",

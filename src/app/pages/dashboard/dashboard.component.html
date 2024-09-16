@@ -21,11 +21,13 @@
                 inputId="buttondisplay" />
             </div>
             <p-button icon="pi pi-filter" 
-                severity="primary" 
+                severity="primary"
+                (onClick)="showMessage(message)"  
                 styleClass="mr-3 h-[2.5rem]"/>
             <p-button icon="pi pi-plus" 
                 severity="primary"
-                label="Add widget" 
+                label="Add widget"
+                (onClick)="showMessage(message)" 
                 [outlined]="true"/>
         </div>
     </div>

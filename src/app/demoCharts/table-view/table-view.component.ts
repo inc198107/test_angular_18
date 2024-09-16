@@ -3,7 +3,6 @@ import { PrimengUIModule } from '../../srared/modules/primeng-ui/primeng-ui.modu
 import { CommonModule } from '@angular/common';
 import { FakeDataService } from '../../srared/services/fake-data-service.service';
 import { MenuItem, MessageService } from 'primeng/api';
-import { Message } from 'primeng/message';
 
 @Component({
   selector: 'app-table-view',
@@ -21,13 +20,15 @@ export class TableViewComponent implements OnInit {
 
   constructor(private dataService: FakeDataService, private messages: MessageService){}
 
+  message = {severity: 'warn', summary:'Isn`t working yet', detail:'Functionality under development now' }
+
   products!:any;
   mainMenuItems: MenuItem[] = [
     {
       label: 'Manage columns',
       icon: "pi pi-search",
       command: () => {
-        this.outMessage.emit({severity: 'warn', summary:'Isn`t working yet', detail:'Functionality under development now' })
+        this.outMessage.emit(this.message)
       }
     },
     {
@@ -37,14 +38,14 @@ export class TableViewComponent implements OnInit {
           label: "Excel",
           icon: "pi pi-download",
           command: () => {
-            this.outMessage.emit({severity: 'warn', summary:'Isn`t working yet', detail:'Functionality under development now' })
+            this.outMessage.emit(this.message)
           }
         },
         {
           label: "PDF",
           icon: "pi pi-download",
           command: () => {
-            this.outMessage.emit({severity: 'warn', summary:'Isn`t working yet', detail:'Functionality under development now' })
+            this.outMessage.emit(this.message)
           }
         },
         
@@ -54,7 +55,7 @@ export class TableViewComponent implements OnInit {
       label: 'Share  by email',
       icon: "pi pi-share-alt",
       command: () => {
-        this.outMessage.emit({severity: 'warn', summary:'Isn`t working yet', detail:'Functionality under development now' })
+        this.outMessage.emit(this.message)
       }
     },
 

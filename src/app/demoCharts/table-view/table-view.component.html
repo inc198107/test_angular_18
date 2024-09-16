@@ -10,12 +10,14 @@
             <p-button [outlined]="true"
                label="Assign to me"
                styleClass="mr-3"
+               (onClick)="outMessage.emit(this.message)"
                badge="4"
                badgeClass="p-badge-primary">
             </p-button>
             <p-button
                label="Change status"
                styleClass="mr-3"
+               (onClick)="outMessage.emit(this.message)"
                badge="2"
                badgeClass="p-badge-primary">
             </p-button>

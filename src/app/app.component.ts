@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, QueryList, ViewChild, ViewChildren} from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { MenuItem, PrimeNGConfig } from 'primeng/api';
 import { palette, usePreset, updatePrimaryPalette, updateSurfacePalette } from 'primeng/themes';
@@ -9,6 +9,7 @@ import { Lara } from 'primeng/themes/lara';
 import { PrimengUIModule } from './srared/modules/primeng-ui/primeng-ui.module';
 import { FormsModule } from '@angular/forms';
 import { ToggleSwitchChangeEvent } from 'primeng/toggleswitch';
+import { Menu } from 'primeng/menu';
 
 
 
@@ -38,6 +39,8 @@ export class AppComponent {
   userEmail = 'somthing@email.com';
   tenant = 'Global'
 
+
+sidebarMinimized: boolean = false;
   
 tenantOptions:MenuItem[] = [
   {
@@ -53,6 +56,43 @@ tenantOptions:MenuItem[] = [
     }
   }
 ]
+
+dynamicMenu: MenuItem[] = [];
+
+sidebarMenu: MenuItem[] = [
+  {
+    label: 'Data',
+    icon: 'pi pi-database',
+    items:[
+      {
+        label: 'Local data',
+      },
+      {
+        label: 'Global data',
+      }
+    ]
+  },
+  {
+    label: 'Advanced',
+    icon: 'pi pi-server',
+    items:[
+      {
+        label: 'Preset A',
+      },
+      {
+        label: 'Preset B',
+      }
+    ]
+  },
+  {
+    label: 'Configurations',
+    icon: 'pi pi-cog'
+  }
+
+];
+
+
+ currentDate = Date.now();
 
 
 
@@ -106,6 +146,8 @@ tenantOptions:MenuItem[] = [
     }
   ];
 
+  @ViewChildren(Menu) submenus!:QueryList<Menu>;
+
   constructor(private config: PrimeNGConfig) {
     this.currentTheme = Aura;
     this.currentPrimary = 'emerald';
@@ -122,6 +164,23 @@ tenantOptions:MenuItem[] = [
 
   toggleProfile() {
     this.showPalette = !this.showPalette;
+  }
+
+  minimizeSidebar(){
+    this.sidebarMinimized = !this.sidebarMinimized;
+  }
+
+  openMenu(event:Event, idx:number, items?:MenuItem[]){
+    if(items){
+      this.dynamicMenu = items; 
+      this.submenus.toArray().forEach((item:Menu)=>{
+        if(item.id && +item.id == idx){
+          item.show(event);
+        }else{
+          item.hide();
+        }
+      })
+    }
   }
 
   clear() {

@@ -22,6 +22,9 @@ import { InputTextModule } from 'primeng/inputtext';
 import { ToolbarModule } from 'primeng/toolbar';
 import { TieredMenuModule } from 'primeng/tieredmenu';
 import { ToastModule } from 'primeng/toast';
+import { PanelMenuModule } from 'primeng/panelmenu';
+import { DividerModule } from 'primeng/divider';
+import { ContextMenuModule } from 'primeng/contextmenu';
 
 
 @NgModule({
@@ -49,7 +52,10 @@ import { ToastModule } from 'primeng/toast';
     InputTextModule,
     ToolbarModule,
     TieredMenuModule,
-    ToastModule
+    ToastModule,
+    PanelMenuModule,
+    DividerModule,
+    ContextMenuModule
   ],
    exports:[
     MenuModule,
@@ -74,7 +80,10 @@ import { ToastModule } from 'primeng/toast';
     InputTextModule,
     ToolbarModule,
     TieredMenuModule,
-    ToastModule 
+    ToastModule,
+    PanelMenuModule,
+    DividerModule,
+    ContextMenuModule
    ]
 })
 export class PrimengUIModule { }
