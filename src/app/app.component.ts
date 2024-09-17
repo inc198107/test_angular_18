@@ -1,16 +1,13 @@
 import { CommonModule } from '@angular/common';
-import { Component, QueryList, ViewChild, ViewChildren} from '@angular/core';
+import { Component, QueryList, ViewChildren } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { MenuItem, PrimeNGConfig } from 'primeng/api';
-import { palette, usePreset, updatePrimaryPalette, updateSurfacePalette } from 'primeng/themes';
-import { Aura } from 'primeng/themes/aura';
-import { Nora } from 'primeng/themes/nora';
-import { Lara } from 'primeng/themes/lara';
+import { palette, usePreset, updatePrimaryPalette, updateSurfacePalette} from 'primeng/themes';
+import {myNora, myAura, myLara} from './presets';
 import { PrimengUIModule } from './srared/modules/primeng-ui/primeng-ui.module';
 import { FormsModule } from '@angular/forms';
 import { ToggleSwitchChangeEvent } from 'primeng/toggleswitch';
 import { Menu } from 'primeng/menu';
-
 
 
 @Component({
@@ -40,59 +37,59 @@ export class AppComponent {
   tenant = 'Global'
 
 
-sidebarMinimized: boolean = false;
-  
-tenantOptions:MenuItem[] = [
-  {
-    label: 'Local',
-    command: () => {
-      this.tenant = "Local"
-    }
-  },
-  {
-    label: 'Global',
-    command: () => {
-      this.tenant = "Global"
-    }
-  }
-]
+  sidebarMinimized: boolean = false;
 
-dynamicMenu: MenuItem[] = [];
-
-sidebarMenu: MenuItem[] = [
-  {
-    label: 'Data',
-    icon: 'pi pi-database',
-    items:[
-      {
-        label: 'Local data',
-      },
-      {
-        label: 'Global data',
+  tenantOptions: MenuItem[] = [
+    {
+      label: 'Local',
+      command: () => {
+        this.tenant = "Local"
       }
-    ]
-  },
-  {
-    label: 'Advanced',
-    icon: 'pi pi-server',
-    items:[
-      {
-        label: 'Preset A',
-      },
-      {
-        label: 'Preset B',
+    },
+    {
+      label: 'Global',
+      command: () => {
+        this.tenant = "Global"
       }
-    ]
-  },
-  {
-    label: 'Configurations',
-    icon: 'pi pi-cog'
-  }
+    }
+  ]
 
-];
+  dynamicMenu: MenuItem[] = [];
+
+  sidebarMenu: MenuItem[] = [
+    {
+      label: 'Data',
+      icon: 'pi pi-database',
+      items: [
+        {
+          label: 'Local data',
+        },
+        {
+          label: 'Global data',
+        }
+      ]
+    },
+    {
+      label: 'Advanced',
+      icon: 'pi pi-server',
+      items: [
+        {
+          label: 'Preset A',
+        },
+        {
+          label: 'Preset B',
+        }
+      ]
+    },
+    {
+      label: 'Configurations',
+      icon: 'pi pi-cog'
+    }
+
+  ];
 
 
- currentDate = Date.now();
+  currentDate = Date.now();
 
 
 
@@ -116,7 +113,7 @@ sidebarMenu: MenuItem[] = [
     }
   ];
 
-  
+
   userMenu: MenuItem[] = [
     {
       label: 'Edit Profile',
@@ -134,24 +131,24 @@ sidebarMenu: MenuItem[] = [
   themeOptions: MenuItem[] = [
     {
       label: 'Aura',
-      value: Aura
+      value: myAura
     },
     {
       label: 'Nora',
-      value: Nora
+      value: myNora
     },
     {
       label: 'Lara',
-      value: Lara
+      value: myLara
     }
   ];
 
-  @ViewChildren(Menu) submenus!:QueryList<Menu>;
+  @ViewChildren(Menu) submenus!: QueryList<Menu>;
 
   constructor(private config: PrimeNGConfig) {
-    this.currentTheme = Aura;
+    this.currentTheme = myAura;
     this.currentPrimary = 'emerald';
-    this.currentSurface = 'slate';
+    this.currentSurface = 'ocean';
     this.config.theme.set({
       preset: this.currentTheme,
       prefix: 'p',
@@ -160,23 +157,24 @@ sidebarMenu: MenuItem[] = [
         cssLayer: false
       }
     })
+
   }
 
   toggleProfile() {
     this.showPalette = !this.showPalette;
   }
 
-  minimizeSidebar(){
+  minimizeSidebar() {
     this.sidebarMinimized = !this.sidebarMinimized;
   }
 
-  openMenu(event:Event, idx:number, items?:MenuItem[]){
-    if(items){
-      this.dynamicMenu = items; 
-      this.submenus.toArray().forEach((item:Menu)=>{
-        if(item.id && +item.id == idx){
+  openMenu(event: Event, idx: number, items?: MenuItem[]) {
+    if (items) {
+      this.dynamicMenu = items;
+      this.submenus.toArray().forEach((item: Menu) => {
+        if (item.id && +item.id == idx) {
           item.show(event);
-        }else{
+        } else {
           item.hide();
         }
       })

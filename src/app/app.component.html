@@ -7,7 +7,7 @@
             <div class="w-7/12 h-full flex flex-row items-center justify-start">
                 <p-menubar [model]="mainMenuOptions" styleClass="h-[2.8rem] bg-surface-100 dark:bg-surface-800" [style]="{ display: 'flex' }">
                     <ng-template pTemplate="item" let-item let-root="root">
-                        <a [routerLink]="item.routerLink" pRipple class="flex items-center p-menubar-item-link">
+                        <a [routerLink]="item.routerLink"  pRipple class="flex items-center p-menubar-item-link">
                             <span *ngIf="item.icon" [class]="item.icon"></span>
                             <span *ngIf="item.label" class="ml-2">{{ item.label }}</span>
                         </a>
@@ -16,10 +16,10 @@
             </div>
             <div class="flex justify-end items-center w-4/12 py-3">
                 <div class="flex items-center mr-4">
-                        <i style="font-size: 2rem" class="pi pi-search mr-2 text-surface-600 dark:text-white"></i>
+                        <i style="font-size: 2rem" class="pi pi-search mr-2 text-surface-200 dark:text-white"></i>
                         <input type="text" placeholder="Type to search" pInputText class="rounded-full w-[14rem] h-[2rem] px-3 dark:bg-surface-800 dark:text-white" />
                 </div>
-                <i class="pi pi-bell mr-5 text-surface-600 dark:text-white" pBadge style="font-size: 2rem" value="2"></i>
+                <i class="pi pi-bell mr-5 text-surface-200 dark:text-white" pBadge style="font-size: 2rem" value="2"></i>
                 <p-splitButton 
                     [label]="tenant"
                     icon="pi pi-sitemap" 
@@ -33,7 +33,6 @@
                     [model]="userMenu" appendTo="body" 
                     styleClass="ml-2 "
                     [severity]="'secondary'"  
-                    
                     (onClick)="toggleUserSettings()" />
                 <p-dialog header="Edit Preferences" [style]="{ 'width': '26rem' }" styleClass="bg-surface-50" [draggable]="false"
                     [resizable]="false" [(visible)]="showPalette" appendTo="body" [position]="'topright'">
@@ -101,6 +100,11 @@
                             </span>
                             <div class="w-full flex flex-row flex-wrap">
                                 <button type="button"
+                                    [ngClass]="{'shadow-md shadow-current': currentSurface === 'ocean'}"
+                                    style="width:1rem; height:1rem; margin: 0.45rem; display: flex; border-radius: 50%; border: 1px solid black"
+                                    class="bg-ocean-400" (click)="changeSurface('ocean')">
+                                </button>
+                                <button type="button"
                                     [ngClass]="{'shadow-md shadow-current': currentSurface === 'slate'}"
                                     style="width:1rem; height:1rem; margin: 0.45rem; display: flex; border-radius: 50%; border: 1px solid black"
                                     class="bg-slate-400" (click)="changeSurface('slate')">
@@ -114,6 +118,16 @@
                                     [ngClass]="{'shadow-md shadow-current': currentSurface === 'neutral'}"
                                     style="width:1rem; height:1rem; margin: 0.45rem; display: flex; border-radius: 50%; border: 1px solid black"
                                     class="bg-neutral-400" (click)="changeSurface('neutral')">
+                                </button>
+                                <button type="button"
+                                    [ngClass]="{'shadow-md shadow-current': currentSurface === 'gray'}"
+                                    style="width:1rem; height:1rem; margin: 0.45rem; display: flex; border-radius: 50%; border: 1px solid black"
+                                    class="bg-gray-400" (click)="changeSurface('gray')">
+                                </button>
+                                <button type="button"
+                                    [ngClass]="{'shadow-md shadow-current': currentSurface === 'stone'}"
+                                    style="width:1rem; height:1rem; margin: 0.45rem; display: flex; border-radius: 50%; border: 1px solid black"
+                                    class="bg-stone-400" (click)="changeSurface('stone')">
                                 </button>
                             </div>
                         </div>
@@ -156,7 +170,9 @@
                 <div class="w-full flex flex-col items-center ">
                     <ul class="p-2 w-full flex flex-col mb-2">
                         <li class="w-full pl-3">
-                            <a role="button" class="text-white  dark:text-surface-900 w-full flex items-center justify-start" (click)="minimizeSidebar()">
+                            <a role="button" [ngClass]="{ 'hover:animate-move' : !sidebarMinimized, 'hover:animate-moveLeft': sidebarMinimized}"
+                                class="text-surface-100 dark:text-surface-100 w-full flex items-center justify-start" 
+                                (click)="minimizeSidebar()">
                                <span *ngIf="!sidebarMinimized" class="pi pi-arrow-circle-left" style="font-size: 2rem;"></span>
                                <span *ngIf="sidebarMinimized" class="pi pi-arrow-circle-right" style="font-size: 2rem;"></span>
                             </a>
@@ -166,7 +182,7 @@
                         <li *ngFor="let menuItem of sidebarMenu; let idx = index" class="py-3 w-full flex flex-row  justify-center items-center">
                             <a role="button" [ngClass]="{'justify-start':!sidebarMinimized, 'justify-center':sidebarMinimized}"
                                 class="h-[2rem] min-w-[3rem] rounded-md flex w-full flex-row  items-center
-                                 text-white dark:text-surface-900 transition ease-in-out  hover:-translate-y-1 
+                                 text-white dark:text-surface-0 transition ease-in-out  hover:-translate-y-1 
                                  hover:scale-110 before:duration-150 hover:border-surface-50 hover:border px-2" 
                                  (click)="openMenu($event, idx, menuItem?.items);" >
                                 <span *ngIf="menuItem.icon" [class]="menuItem.icon"></span>
