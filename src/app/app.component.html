@@ -167,17 +167,19 @@
         <aside [ngClass]="{ 'col-span-2' : !sidebarMinimized, 'col-span-1': sidebarMinimized}"
             class="main-aside flex flex-col items-center row-span-12 row-start-1 col-start-1">
             <div class="w-full h-full px-2 pt-2 bg-surface-400 dark:bg-surface-600  flex flex-col items-center justify-between">
-                <div class="w-full flex flex-col items-center ">
+                <div class="w-full flex flex-col items-center">
                     <ul class="p-2 w-full flex flex-col mb-2">
                         <li class="w-full pl-3">
-                            <a role="button" [ngClass]="{ 'hover:animate-move' : !sidebarMinimized, 'hover:animate-moveLeft': sidebarMinimized}"
+                            <a role="button" [ngClass]="{'[&>span.pi]:hover:animate-move' : !sidebarMinimized, '[&>.pi]:hover:animate-moveLeft': sidebarMinimized}"
                                 class="text-surface-100 dark:text-surface-100 w-full flex items-center justify-start" 
                                 (click)="minimizeSidebar()">
                                <span *ngIf="!sidebarMinimized" class="pi pi-arrow-circle-left" style="font-size: 2rem;"></span>
+                               <span *ngIf="!sidebarMinimized" class="pl-2 text-xs">Sidebar collapse</span>
                                <span *ngIf="sidebarMinimized" class="pi pi-arrow-circle-right" style="font-size: 2rem;"></span>
                             </a>
                         </li>
                     </ul>
+                    <p-divider type="solid" layout="horizontal" styleClass="border-surface-50 py-2 mx-3"/>
                     <ul class="p-2 w-full flex flex-col mb-2">
                         <li *ngFor="let menuItem of sidebarMenu; let idx = index" class="py-3 w-full flex flex-row  justify-center items-center">
                             <a role="button" [ngClass]="{'justify-start':!sidebarMinimized, 'justify-center':sidebarMinimized}"
